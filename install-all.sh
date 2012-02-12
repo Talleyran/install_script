@@ -8,10 +8,15 @@ githubuser=$USER
 
 cd ~
 
+#clean
+rm -rf .vim
+rm .vimrc
+rm -rf .oh-my-zsh
+rm .zshrc
+
 # update & upgrade
 sudo apt-get update
 sudo apt-get dist-upgrade
-
 
 #system
 ssh-keygen -t rsa
