@@ -13,6 +13,8 @@ rm -rf .vim
 rm .vimrc
 rm -rf .oh-my-zsh
 rm .zshrc
+rm -rf source/$mapserver
+rm -f source/$mapserver.tar.gz
 
 # update & upgrade
 sudo apt-get update
