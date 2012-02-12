@@ -16,9 +16,10 @@ sudo apt-get dist-upgrade
 #system
 ssh-keygen -t rsa
 sudo apt-get install zsh curl git-core
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh 
-curl https://raw.github.com/gist/1801369/616aed10ae2168f12e3341ae95451a3e3f80ce75/special_dallas.zsh-theme > .oh-my-zsh/themes/special_dallas.zsh-theme
-curl https://raw.github.com/gist/1802469/2bc8096ee4079083fb6d59e71863ebe3effabc58/.zshrc > .zshrc
+git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
+https://raw.github.com/Talleyran/install_script/master/files/.vimrc
+curl https://raw.github.com/Talleyran/install_script/master/files/special_dallas.zsh-theme > .oh-my-zsh/themes/special_dallas.zsh-theme
+curl https://raw.github.com/Talleyran/install_script/master/files/.zshrc > .zshrc
 
 #git
 git config --global user.name $name
