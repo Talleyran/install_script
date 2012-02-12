@@ -1,0 +1,4 @@
+download https://raw.github.com/Talleyran/install_script/master/install-all.sh
+set vars
+chmod +x
+run
