@@ -1,9 +1,9 @@
 ##!/bin/zsh
-ruby=1.9.3
-mapserver=mapserver-6.0.2
-pgpass=514790
-name=Kirill Jakovlev
-email=special-k@li.ru
+ruby='1.9.3'
+mapserver='mapserver-6.0.2'
+pgpass='514790'
+name='Kirill Jakovlev'
+email='special-k@li.ru'
 githubuser=$USER
 
 cd ~
