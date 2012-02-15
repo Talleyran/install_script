@@ -32,7 +32,7 @@ sudo apt-get update
 sudo apt-get dist-upgrade -y
 
 #system
-sudo apt-get install -y curl git-core
+sudo apt-get install -y curl git-core mercurial
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 curl https://raw.github.com/Talleyran/install_script/master/files/special_dallas.zsh-theme > .oh-my-zsh/themes/special_dallas.zsh-theme
 curl https://raw.github.com/Talleyran/install_script/master/files/.zshrc > .zshrc
