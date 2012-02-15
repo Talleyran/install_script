@@ -5,6 +5,7 @@ pgpass='514790'
 name='Kirill Jakovlev'
 email='special-k@li.ru'
 githubuser=$USER
+pguser=$USER
 
 cd ~
 
@@ -28,10 +29,10 @@ ssh-keygen -t rsa
 
 # update & upgrade
 sudo apt-get update
-sudo apt-get dist-upgrade
+sudo apt-get dist-upgrade -y
 
 #system
-sudo apt-get install curl git-core
+sudo apt-get install -y curl git-core
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 curl https://raw.github.com/Talleyran/install_script/master/files/special_dallas.zsh-theme > .oh-my-zsh/themes/special_dallas.zsh-theme
 curl https://raw.github.com/Talleyran/install_script/master/files/.zshrc > .zshrc
@@ -52,35 +53,32 @@ ln -s ~/.vim/vim-pathogen/autoload ~/.vim/autoload
 cd ~
 
 #ruby
-sudo apt-get install build-essential libssl-dev libreadline-dev zlib1g-dev libssl-dev libpq-dev libxml2 libxml2-dev libxslt-dev libmagickwand-dev
+sudo apt-get install -y build-essential libssl-dev libreadline-dev zlib1g-dev libssl-dev libpq-dev libxml2 libxml2-dev libxslt-dev libmagickwand-dev
 bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
 source ~/.zshrc
 rvm install $ruby
 rvm use $ruby --default
+gem install bundler
 
 #desktop
-sudo apt-get install xclip
-sudo apt-get install vlc
-sudo apt-get purge totem
-sudo apt-get purge banshee
-sudo add-apt-repository ppa:alexey-smirnov/deadbeef
+sudo apt-get install -y xclip vlc
+sudo apt-get purge -y totem banshee
+sudo add-apt-repository -y ppa:alexey-smirnov/deadbeef
 sudo apt-get update
-sudo apt-get install deadbeef
+sudo apt-get install -y deadbeef
 
 #postgres
-sudo apt-get install postgresql
+sudo apt-get install -y postgresql pgadmin3
 sudo -u postgres createuser -s special-k
-sudo -u postgres psql -c "alter role \"special-k\" password '$pgpass';"
-sudo apt-get install pgadmin3
+sudo -u postgres psql -c "alter role \"$pguser\" password '$pgpass';"
 
 #gis
-sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 sudo apt-get update
-sudo apt-get install qgis
-sudo apt-get install mapserver-bin
+sudo apt-get install -y qgis mapserver-bin postgres postgis postgres-8.4-postgis
 
 #mapscript
-sudo apt-get install libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libgdal-dev libgd2-xpm-dev libproj-dev libcurl4-openssl-dev libxslt-dev libghc6-cairo-dev swig
+sudo apt-get install -y libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libgdal-dev libgd2-xpm-dev libproj-dev libcurl4-openssl-dev libxslt-dev libghc6-cairo-dev swig
 if [ ! -d ~/source ]; then
   mkdir ~/source
 fi
@@ -124,6 +122,3 @@ cd ~
 
 #autoclean
 sudo apt-get autoclean
-
-#after all
-source ~/.zshrc
