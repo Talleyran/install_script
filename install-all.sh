@@ -6,6 +6,12 @@ name='Kirill Jakovlev'
 email='special-k@li.ru'
 githubuser=$USER
 pguser=$USER
+if [[ `egrep -o '[0-9]+\.[0-9]+' /etc/issue` > "11.04" ]]
+then
+  version=new
+else
+  version=old
+fi
 
 cd ~
 
@@ -43,6 +49,7 @@ git config --global --replace-all user.email "$email"
 git config --global --replace-all github.user "$githubuser"
 
 #vim
+sudo apt-get install -y vim-gnome
 git clone git@github.com:Talleyran/myvim.git ~/.vim
 cd ~/.vim
 git submodule init
@@ -63,19 +70,31 @@ gem install bundler
 #desktop
 sudo apt-get install -y xclip vlc
 sudo apt-get purge -y totem banshee
-sudo add-apt-repository -y ppa:alexey-smirnov/deadbeef
+if [[ $version = new ]]
+then
+  sudo add-apt-repository -y ppa:alexey-smirnov/deadbeef
+  sudo add-apt-repository -y ppa:atareao/atareao
+else
+  sudo add-apt-repository ppa:alexey-smirnov/deadbeef
+  sudo add-apt-repository ppa:atareao/atareao
+fi
 sudo apt-get update
-sudo apt-get install -y deadbeef
+sudo apt-get install -y deadbeef touchpad-indicator
 
 #postgres
 sudo apt-get install -y postgresql pgadmin3
 sudo -u postgres createuser -s special-k
 sudo -u postgres psql -c "alter role \"$pguser\" password '$pgpass';"
 
-#gis
-sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
+gis
+if [[ $version = new ]]
+then
+  sudo add-apt-repository -y ppa:alexey-smirnov/deadbeef
+else
+  sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+fi
 sudo apt-get update
-sudo apt-get install -y qgis mapserver-bin postgres postgis postgres-8.4-postgis
+sudo apt-get install -y qgis mapserver-bin postgis postgresql-8.4-postgis
 
 #mapscript
 sudo apt-get install -y libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libgdal-dev libgd2-xpm-dev libproj-dev libcurl4-openssl-dev libxslt-dev libghc6-cairo-dev swig
