@@ -54,6 +54,14 @@ alias grsh='git reset --hard'
 alias gcur='git rev-parse HEAD'
 alias gcam='git commit --amend'
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
+alias gd='git diff'
+alias gdh='git diff HEAD'
+
+#bundler
+alias bi='bundle install'
+alias bu='bundle install'
+alias be='bundle exec'
+alias bea='bundle exec autotest'
 
 alias xclip='xclip -selection c'
 
