@@ -16,11 +16,13 @@ export ZSH_THEME="special_dallas"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(rake git mercurial)
+plugins=(rake git mercurial vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+alias reso="source $ZSH/oh-my-zsh.sh"
+
 alias addppa="sudo add-apt-repository"
 alias aptup="sudo apt-get update"
 alias aptgr="sudo apt-get upgrade"
@@ -31,6 +33,7 @@ alias r="rails"
 
 alias gsvim='gvim --servername onevim'
 alias gsvimadd='gsvim --remote'
+alias v='gvim -f &'
 
 alias unmdb='sudo rm /var/lib/mongodb/mongod.lock'
 alias rgs='sudo service geoserver start'
@@ -54,14 +57,13 @@ alias grsh='git reset --hard'
 alias gcur='git rev-parse HEAD'
 alias gcam='git commit --amend'
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
-alias gd='git diff'
-alias gdh='git diff HEAD'
+alias gar="git add .&&git ls-files --deleted | xargs git rm"
+alias gd="git diff"
+alias gdh="git diff HEAD"
+alias gsi="git submodule init"
+alias gsu="git submodule update"
 
-#bundler
-alias bi='bundle install'
-alias bu='bundle install'
-alias be='bundle exec'
-alias bea='bundle exec autotest'
+alias hids="history | grep"
 
 alias xclip='xclip -selection c'
 
