@@ -30,6 +30,8 @@ alias aptsgr="sudo apt-get dist-upgrade"
 alias apti="sudo apt-get install"
 
 alias r="rails"
+alias bi="bundle install"
+alias be="bundle exec"
 
 alias gsvim='gvim --servername onevim'
 alias gsvimadd='gsvim --remote'
