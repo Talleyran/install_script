@@ -16,6 +16,7 @@ fi
 
 show_help() { 
   echo 'You can install:
+    chsh
     rsa
     system
     git
@@ -60,18 +61,22 @@ else
   not_b=true
 fi
 
+chsh=$not_b
 rsa=$not_b
 system=$not_b
 git=$not_b
 vim=$not_b
 ruby=$not_b
 desktop=$not_b
+postgres=$not_b
 gis=$not_b
 mapscript=$not_b
 
 for i in $*
 do
   case $i in
+    chsh) chsh=$b
+      ;;
     rsa) rsa=$b
       ;;
     system) system=$b
@@ -96,7 +101,9 @@ cd ~
 sudo echo We are sudo
 
 #set shell
+if $chsh;then
 chsh -s /bin/zsh
+fi
 
 #gen rsa
 if $rsa;then
@@ -128,6 +135,7 @@ fi
 if $vim;then
   rm -rf .vim #clean
   rm -f .vimrc #clean
+  rm -f .iabbrev #clean
   sudo apt-get install -y vim-gnome
   git clone git@github.com:Talleyran/myvim.git ~/.vim
   cd ~/.vim
@@ -177,12 +185,13 @@ fi
 if $gis;then
   if [[ $version = new ]]
   then
-    sudo add-apt-repository -y ppa:alexey-smirnov/deadbeef
+    sudo add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
   else
     sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
   fi
   sudo apt-get update
   sudo apt-get install -y qgis mapserver-bin postgis postgresql-8.4-postgis
+  #TODO default spatial template
 fi
 
 #mapscript
