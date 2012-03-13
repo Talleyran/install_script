@@ -21,7 +21,13 @@ plugins=(rake git mercurial vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-alias reso="source $ZSH/oh-my-zsh.sh"
+alias reso="source ~/.zshrc"
+
+alias bi="bundle install"
+alias bu="bundle update"
+alias be="bundle exec"
+alias bea="bundle exec autoload"
+alias bet="bundle exec thin"
 
 alias addppa="sudo add-apt-repository"
 alias aptup="sudo apt-get update"
@@ -30,8 +36,6 @@ alias aptsgr="sudo apt-get dist-upgrade"
 alias apti="sudo apt-get install"
 
 alias r="rails"
-alias bi="bundle install"
-alias be="bundle exec"
 
 alias gsvim='gvim --servername onevim'
 alias gsvimadd='gsvim --remote'
@@ -59,7 +63,6 @@ alias grsh='git reset --hard'
 alias gcur='git rev-parse HEAD'
 alias gcam='git commit --amend'
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
-<<<<<<< HEAD
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
 alias gd="git diff"
 alias gdh="git diff HEAD"
@@ -67,10 +70,6 @@ alias gsi="git submodule init"
 alias gsu="git submodule update"
 
 alias hids="history | grep"
-=======
-alias gd="git diff"
-alias gdh="git diff HEAD"
->>>>>>> f991baa639ba28dc7fe9d6e1e318af37f283f763
 
 alias xclip='xclip -selection c'
 
