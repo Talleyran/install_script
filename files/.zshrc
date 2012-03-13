@@ -57,6 +57,7 @@ alias grsh='git reset --hard'
 alias gcur='git rev-parse HEAD'
 alias gcam='git commit --amend'
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
+<<<<<<< HEAD
 alias gar="git add .&&git ls-files --deleted | xargs git rm"
 alias gd="git diff"
 alias gdh="git diff HEAD"
@@ -64,6 +65,10 @@ alias gsi="git submodule init"
 alias gsu="git submodule update"
 
 alias hids="history | grep"
+=======
+alias gd="git diff"
+alias gdh="git diff HEAD"
+>>>>>>> f991baa639ba28dc7fe9d6e1e318af37f283f763
 
 alias xclip='xclip -selection c'
 

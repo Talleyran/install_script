@@ -1,9 +1,7 @@
-first
+first in command line
 sudo apt-get install zsh
-chsh
-/bin/zsh
 then
 download https://raw.github.com/Talleyran/install_script/master/install-all.sh
 set vars in install-all.sh
-chmod +x
-run it
+chmod +x install-all.sh
+./install-all.sh
