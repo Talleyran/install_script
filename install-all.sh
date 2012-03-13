@@ -23,6 +23,8 @@ show_help() {
     vim
     ruby
     desktop
+    postgres
+    mysql
     gis
     mapscript
 
@@ -69,6 +71,7 @@ vim=$not_b
 ruby=$not_b
 desktop=$not_b
 postgres=$not_b
+mysql=$not_b
 gis=$not_b
 mapscript=$not_b
 
@@ -88,6 +91,10 @@ do
     ruby) ruby=$b
       ;;
     desktop) desktop=$b
+      ;;
+    postgres) postgres=$b
+      ;;
+    mysql) mysql=$b
       ;;
     gis) gis=$b
       ;;
@@ -179,6 +186,11 @@ if $postgres;then
   sudo apt-get install -y postgresql pgadmin3
   sudo -u postgres createuser -s special-k
   sudo -u postgres psql -c "alter role \"$pguser\" password '$pgpass';"
+fi
+
+#mysql
+if $mysql;then
+  sudo apt-get install -y mysql-server libmysqlclient15-dev
 fi
 
 #gis
