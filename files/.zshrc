@@ -26,7 +26,7 @@ alias reso="source ~/.zshrc"
 alias bi="bundle install"
 alias bu="bundle update"
 alias be="bundle exec"
-alias bea="bundle exec autoload"
+alias bea="bundle exec autotest"
 alias bet="bundle exec thin"
 
 alias addppa="sudo add-apt-repository"
