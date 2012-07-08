@@ -1,6 +1,6 @@
 #!/bin/zsh
 ruby='1.9.3'
-mapserver='mapserver-6.0.2'
+#mapserver='mapserver-6.0.3'
 pgpass='514790'
 name='Kirill Jakovlev'
 email='special-k@li.ru'
@@ -56,11 +56,11 @@ case $1 in
     ;;
 esac
 
-if $b
+if [ -z $1 ]
 then
-  not_b=false
-else
   not_b=true
+else
+  not_b=false
 fi
 
 chsh=$not_b
@@ -73,7 +73,8 @@ desktop=$not_b
 postgres=$not_b
 mysql=$not_b
 gis=$not_b
-mapscript=$not_b
+qgis=$not_b
+mapserver=$not_b
 
 for i in $*
 do
@@ -98,7 +99,9 @@ do
       ;;
     gis) gis=$b
       ;;
-    mapscript) mapscript=$b
+    qgis) qgis=$b
+      ;;
+    mapserver) mapserver=$b
       ;;
   esac
 done
@@ -109,7 +112,7 @@ sudo echo We are sudo
 
 #set shell
 if $chsh;then
-chsh -s /bin/zsh
+  chsh -s /bin/zsh
 fi
 
 #gen rsa
@@ -157,7 +160,7 @@ fi
 #ruby
 if $ruby;then
   rm -rf .rvm #clean
-  sudo apt-get install -y build-essential libssl-dev libreadline-dev zlib1g-dev libssl-dev libpq-dev libxml2 libxml2-dev libxslt-dev libmagickwand-dev
+  sudo apt-get install -y build-essential openssl libreadline6 libreadline6-dev curl git-core zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison subversion libmagickwand-dev
   bash -s stable < <(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer )
   source ~/.zshrc
   rvm install $ruby
@@ -202,55 +205,86 @@ if $gis;then
     sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
   fi
   sudo apt-get update
-  sudo apt-get install -y qgis mapserver-bin postgis postgresql-8.4-postgis
-  #TODO default spatial template
 fi
 
-#mapscript
-if $mapscript;then
-  rm -rf source/$mapserver
-  rm -f source/$mapserver.tar.gz
-  sudo apt-get install -y libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libgdal-dev libgd2-xpm-dev libproj-dev libcurl4-openssl-dev libxslt-dev libghc6-cairo-dev swig
-  if [ ! -d ~/source ]; then
-    mkdir ~/source
-  fi
-  cd ~/source
-  curl http://download.osgeo.org/mapserver/$mapserver.tar.gz > $mapserver.tar.gz
-  tar xvzf $mapserver.tar.gz
-  cd $mapserver
-  ./configure --with-gdal=/usr/bin/gdal-config \
-  --with-ogr=/usr/bin/gdal-config \
-  --with-wfsclient \
-  --with-wmsclient \
-  --with-curl-config=/usr/bin/curl-config \
-  --with-proj=/usr/ \
-  --with-tiff \
-  --with-jpeg \
-  --with-freetype=/usr/ \
-  --with-threads \
-  --with-wcs \
-  --with-postgis=yes \
-  --with-libiconv=/usr \
-  --with-geos=/usr/bin/geos-config \
-  --with-xml2-config=/usr/bin/xml2-config \
-  --with-sos \
-  --without-agg-svg-symbols \
-  --with-cairo=yes \
-  --with-kml=yes \
-  --with-exslt
-  make
-  cd mapscript/ruby
-  ruby ./extconf.rb
-  make
+#qgis
+if $qgis;then
+  sudo apt-get install -y qgis
+fi
+
+#postgis
+if $postgis;then
+  #TODO
+fi
+
+#mapserver
+if $mapserver;then
+  sudo apt-get install -y mapserver-bin libmapscript-ruby1.9.1
+
   for i in $(ruby -e 'puts $LOAD_PATH')
   do
     for j in $(find $i -maxdepth 1 -name '*.so')
     do
-      cp *.so $i/
+      for k in $(dpkg -L libmapscript-ruby1.9.1 | grep 'mapscript.so')
+      do
+        cp $k $i/
+        chmod +x $i/mapscript.so
+        break
+      done
       break
     done
   done
-  cd ~
+
+  #for i in $(ruby -e 'puts $LOAD_PATH');
+  #do
+    #ls $i/*.so
+  #done
+
+  #cd ~
+  #sudo apt-get install -y libfreetype6-dev libgif-dev libpng-dev libjpeg-dev libgdal-dev libgd2-xpm-dev libproj-dev libxslt-dev libghc6-cairo-dev swig
+  #rm -rf source/$mapserver
+  #rm -f source/$mapserver.tar.gz
+  #if [ ! -d ~/source ]; then
+    #mkdir ~/source
+  #fi
+  #cd ~/source
+  #curl http://download.osgeo.org/mapserver/$mapserver.tar.gz > $mapserver.tar.gz
+  #tar xvzf $mapserver.tar.gz
+  #cd $mapserver
+  #./configure --libdir=/usr/lib/x86_64-linux-gnu \
+  #--with-gdal=/usr/bin/gdal-config \
+  #--with-ogr=/usr/bin/gdal-config \
+  #--with-wfsclient \
+  #--with-wmsclient \
+  #--with-curl-config=/usr/bin/curl-config \
+  #--with-proj=/usr/ \
+  #--with-tiff \
+  #--with-jpeg \
+  #--with-freetype=/usr/ \
+  #--with-threads \
+  #--with-wcs \
+  #--with-postgis=yes \
+  #--with-libiconv=/usr \
+  #--with-geos=/usr/bin/geos-config \
+  #--with-xml2-config=/usr/bin/xml2-config \
+  #--with-sos \
+  #--without-agg-svg-symbols \
+  #--with-cairo=yes \
+  #--with-kml=yes \
+  #--with-gd=/usr/lib/x86_64-linux-gnu
+  #make
+  #cd mapscript/ruby
+  #ruby ./extconf.rb
+  #make
+  #for i in $(ruby -e 'puts $LOAD_PATH')
+  #do
+    #for j in $(find $i -maxdepth 1 -name '*.so')
+    #do
+      #cp *.so $i/
+      #break
+    #done
+  #done
+  #cd ~
 fi
 
 #autoclean
