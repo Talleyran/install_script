@@ -28,6 +28,9 @@ alias bu="bundle update"
 alias be="bundle exec"
 alias bea="bundle exec autotest"
 alias bet="bundle exec thin"
+alias begs="bundle exec guard start"
+alias berj="bundle exec rake jasmine"
+alias r="bundle exec rails"
 
 alias addppa="sudo add-apt-repository"
 alias aptup="sudo apt-get update"
@@ -35,7 +38,7 @@ alias aptgr="sudo apt-get upgrade"
 alias aptsgr="sudo apt-get dist-upgrade"
 alias apti="sudo apt-get install"
 
-alias r="rails"
+alias a='sudo aptitude'
 
 alias gsvim='gvim --servername onevim'
 alias gsvimadd='gsvim --remote'
@@ -72,6 +75,10 @@ alias gsu="git submodule update"
 alias hids="history | grep"
 
 alias xclip='xclip -selection c'
+
+alias show='eog'
+
+alias св='cd'
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"  # This loads RVM into a shell session.
 

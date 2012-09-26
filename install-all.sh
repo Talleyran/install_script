@@ -146,13 +146,15 @@ if $vim;then
   rm -rf .vim #clean
   rm -f .vimrc #clean
   rm -f .iabbrev #clean
+  rm -f .ctags #clean
   sudo apt-get install -y vim-gnome
   git clone git@github.com:Talleyran/myvim.git ~/.vim
   cd ~/.vim
   git submodule init
   git submodule update
-  cp ~/.vim/.vimrc ~/
-  cp ~/.vim/.iabbrev ~/
+  ln -s ~/.vim/.vimrc ~/
+  ln -s ~/.vim/.iabbrev ~/
+  ln -s ~/.vim/.ctags ~/
   ln -s ~/.vim/vim-pathogen/autoload ~/.vim/autoload
   cd ~
 fi
